@@ -16,7 +16,7 @@ namespace AssetsPattern
 		public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            GE_Button e = target as GE_Button;
+            //GE_Button e = target as GE_Button;
 
 			EditorGUILayout.PropertyField(_propEventsToRaise, true);
 		}
