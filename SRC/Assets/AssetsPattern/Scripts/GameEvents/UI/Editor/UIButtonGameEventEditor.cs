@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
-    [CustomEditor(typeof(GE_Button))]
-    public class GE_ButtonEditor : UnityEditor.UI.ButtonEditor
+    [CustomEditor(typeof(UIButtonGameEvent))]
+    public class UIButtonGameEventEditor : UnityEditor.UI.ButtonEditor
 	{
 		private SerializedProperty _propEventsToRaise;
 
@@ -16,7 +16,6 @@ namespace AssetsPattern
 		public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            //GE_Button e = target as GE_Button;
 
 			EditorGUILayout.PropertyField(_propEventsToRaise, true);
 		}

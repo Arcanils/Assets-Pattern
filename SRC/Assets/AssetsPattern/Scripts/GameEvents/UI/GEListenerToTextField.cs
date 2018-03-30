@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace AssetsPattern
+﻿namespace AssetsPattern
 {
-	public class GEListenerToTextField : GameEventListener
+	public class GEListenerToTextField : AbstractGameEventListener
 	{
 		public IntReference Value;
 		public UnityEngine.UI.Text TextField;

@@ -1,14 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
 	[CustomPropertyDrawer(typeof(Vector2Reference))]
-	public class StringReferenceDrawer : GenericReferenceDrawer<string>
+	public class StringReferenceDrawer : GenericReferenceDrawer
 	{
-		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-		{
-			base.OnGUI(position, property, label);
-		}
 	}
 }

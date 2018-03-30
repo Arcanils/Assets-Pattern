@@ -1,31 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
-	public abstract class GenericVariableEditor<T, S> : Editor where T : GenericVariable<S>
+	public abstract class GenericVariableEditor<TType> : UnityEditor.Editor
 	{
-		/*
-		private SerializedProperty _valueProp;
-		
-		private void OnEnable()
-		{
-			_valueProp = serializedObject.FindProperty("_value");
-		}*/
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
 
 			GUI.enabled = Application.isPlaying;
 
-			var currentTarget = target as GenericVariable<S>;
-			/*
-			if (EditorGUILayout.PropertyField(_valueProp))
-			{
-				currentTarget.OnChangeValue();
-			}*/
+			var currentTarget = target as GenericVariable<TType>;
+			if (currentTarget == null)
+				return;
 
 			if (GUILayout.Button("RaiseEvent : OnChangeValue"))
 			{

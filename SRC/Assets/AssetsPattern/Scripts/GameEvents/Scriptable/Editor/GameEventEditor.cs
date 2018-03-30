@@ -2,10 +2,10 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
     [CustomEditor(typeof(GameEvent))]
-    public class GameEventEditor : Editor
+    public class GameEventEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -13,32 +13,35 @@ namespace AssetsPattern
 
             GUI.enabled = Application.isPlaying;
 
-            GameEvent e = target as GameEvent;
-            if (GUILayout.Button("Raise"))
-                e.Raise();
+            var targetEvent = target as GameEvent;
+	        if (targetEvent == null)
+		        return;
 
-			DisplayListEvents(e);
+            if (GUILayout.Button("Raise"))
+                targetEvent.Raise();
+
+			DisplayListEvents(targetEvent);
 		}
 
 
-		public void DisplayListEvents(GameEvent Target)
+		private static void DisplayListEvents(GameEvent target)
 		{
-			List<string> ListAction;
-			List<string> ListGEL;
+			List<string> listAction;
+			List<string> listGel;
 
-			Target.GetEvents(out ListAction, out ListGEL);
+			target.GetEvents(out listAction, out listGel);
 
 			EditorGUILayout.LabelField("List event script", EditorStyles.boldLabel);
 			EditorGUILayout.Space();
-			for (int i = 0; i < ListAction.Count; i++)
+			foreach (var t in listAction)
 			{
-				EditorGUILayout.LabelField(ListAction[i]);
+				EditorGUILayout.LabelField(t);
 			}
 			EditorGUILayout.LabelField("List event UI", EditorStyles.boldLabel);
 			EditorGUILayout.Space();
-			for (int i = 0; i < ListGEL.Count; i++)
+			foreach (var t in listGel)
 			{
-				EditorGUILayout.LabelField(ListGEL[i]);
+				EditorGUILayout.LabelField(t);
 			}
 		}
     }

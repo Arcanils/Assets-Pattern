@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
 	[CustomEditor(typeof(IntVariable))]
-	public class IntVariableEditor : GenericVariableEditor<IntVariable, int>
+	public class IntVariableEditor : GenericVariableEditor<int>
 	{
 	}
 }

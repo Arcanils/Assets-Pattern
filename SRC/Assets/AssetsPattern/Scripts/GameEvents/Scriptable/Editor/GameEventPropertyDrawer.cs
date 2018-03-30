@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
 	[CustomPropertyDrawer(typeof(GameEvent))]
 	public class GameEventPropertyDrawer : PropertyDrawer
@@ -12,13 +10,16 @@ namespace AssetsPattern
 		{
 			label = EditorGUI.BeginProperty(position, label, property);
 			position = EditorGUI.PrefixLabel(position, label);
+
+			var indent = EditorGUI.indentLevel;
+			EditorGUI.indentLevel = 0;
 			EditorGUI.BeginChangeCheck();
 
 			var target = property.objectReferenceValue as GameEvent;
 			if (Application.isPlaying && target != null)
 			{
+				const float widthButton = 80f;
 				var heightButton = position.height;
-				var widthButton = 80f;
 				var rectButton = new Rect(position.x, position.y, widthButton, heightButton);
 				position.width -= widthButton;
 				position.x += widthButton;
@@ -31,6 +32,7 @@ namespace AssetsPattern
 			if (EditorGUI.EndChangeCheck())
 				property.serializedObject.ApplyModifiedProperties();
 
+			EditorGUI.indentLevel = indent;
 			EditorGUI.EndProperty();
 		}
 	}

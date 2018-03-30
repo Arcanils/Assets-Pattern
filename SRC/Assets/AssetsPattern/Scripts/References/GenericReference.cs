@@ -1,27 +1,24 @@
-﻿
-using UnityEngine;
-
-namespace AssetsPattern
+﻿namespace AssetsPattern
 {
 	[System.Serializable]
-	public class GenericReference<T, S> where S : GenericVariable<T>
+	public class GenericReference<TType, TGenericVariable> where TGenericVariable : GenericVariable<TType>
 	{
 		public bool UseConstant = true;
-		public T ConstantValue;
-		public S Variable;
+		public TType ConstantValue;
+		public TGenericVariable Variable;
 
 		private System.Action _onValueChange;
 
 		public GenericReference()
 		{ }
 
-		public GenericReference(T value)
+		public GenericReference(TType value)
 		{
 			UseConstant = true;
 			ConstantValue = value;
 		}
 
-		public T Value
+		public TType Value
 		{
 			get
 			{
@@ -29,35 +26,30 @@ namespace AssetsPattern
 			}
 			set
 			{
-				bool isNewValue = !Value.Equals(value);
-				if (isNewValue)
-				{
-					if (UseConstant)
-					{
-						ConstantValue = value;
-					}
-					else
-						Variable.Value = value;
-
-				}
+				var isNewValue = !Value.Equals(value);
+				if (!isNewValue) return;
+				if (UseConstant)
+					ConstantValue = value;
+				else
+					Variable.Value = value;
 			}
 		}
 
 
-		public void RegisterAction(System.Action FctToRegister)
+		public void AddListenerToOnValueChange(System.Action callback)
 		{
 			if (!UseConstant && Variable != null)
-				Variable.RegisterAction(FctToRegister);
+				Variable.AddListernerToOnValueChange(callback);
 			else
-				_onValueChange += FctToRegister;
+				_onValueChange += callback;
 		}
 
-		public void UnregisterAction(System.Action FctToRegister)
+		public void RemoveListenerToOnValueChange(System.Action callback)
 		{
 			if (!UseConstant && Variable != null)
-				Variable.UnregisterAction(FctToRegister);
+				Variable.RemoveListernerToOnValueChange(callback);
 			else
-				_onValueChange -= FctToRegister;
+				_onValueChange -= callback;
 		}
 		private void OnValueChange()
 		{

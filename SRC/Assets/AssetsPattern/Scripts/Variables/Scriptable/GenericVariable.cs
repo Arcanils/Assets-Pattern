@@ -3,13 +3,13 @@
 namespace AssetsPattern
 {
 	[System.Serializable]
-	public class GenericVariable<T> : ScriptableObject //where T : struct
+	public class GenericVariable<TType> : ScriptableObject
 	{
 #if UNITY_EDITOR
 		[Multiline]
 		public string DeveloperDescription = "";
 #endif
-		public T Value
+		public TType Value
 		{
 			get
 			{
@@ -17,32 +17,30 @@ namespace AssetsPattern
 			}
 			set
 			{
-				if (!_value.Equals(value))
-				{
-					_value = value;
-					OnChangeValue();
-				}
+				if (_value.Equals(value)) return;
+				_value = value;
+				OnChangeValue();
 			}
 		}
 		[SerializeField]
-		private T _value;
+		private TType _value;
 
 		private System.Action _onValueChange;
 		
 
-		public void SetValue(GenericVariable<T> value)
+		public void SetValue(GenericVariable<TType> value)
 		{
 			Value = value.Value;
 		}
 
-		public void RegisterAction(System.Action FctToRegister)
+		public void AddListernerToOnValueChange(System.Action callback)
 		{
-			_onValueChange += FctToRegister;
+			_onValueChange += callback;
 		}
 
-		public void UnregisterAction(System.Action FctToRegister)
+		public void RemoveListernerToOnValueChange(System.Action callback)
 		{
-			_onValueChange -= FctToRegister;
+			_onValueChange -= callback;
 		}
 
 		public void OnChangeValue()

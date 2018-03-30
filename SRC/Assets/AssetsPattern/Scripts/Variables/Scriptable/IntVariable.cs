@@ -2,7 +2,7 @@
 
 namespace AssetsPattern
 {
-	[CreateAssetMenu(fileName = "IntVar", menuName = "AssetsPattern/Variable/IntVar")]
+	[CreateAssetMenu(fileName = "IntVar", menuName = "AssetsPattern/Variable/Int")]
 	[System.Serializable]
 	public class IntVariable : GenericVariable<int>
 	{

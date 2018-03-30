@@ -9,8 +9,8 @@ namespace AssetsPattern
         /// <summary>
         /// The list of listeners that this event will notify if it is raised.
         /// </summary>
-        private readonly List<GameEventListener> _eventListeners = 
-            new List<GameEventListener>();
+        private readonly List<AbstractGameEventListener> _eventListeners = 
+            new List<AbstractGameEventListener>();
 
 		private System.Action _eventScriptListeners;
 
@@ -19,49 +19,49 @@ namespace AssetsPattern
 			if (_eventScriptListeners != null)
 				_eventScriptListeners();
 
-			for (int i = _eventListeners.Count - 1; i >= 0; i--)
+			for (var i = _eventListeners.Count - 1; i >= 0; i--)
 				_eventListeners[i].OnEventRaised();
 		}
 
-        public void RegisterListener(GameEventListener listener)
+        public void RegisterListener(AbstractGameEventListener listener)
         {
             if (!_eventListeners.Contains(listener))
                 _eventListeners.Add(listener);
         }
 
-        public void UnregisterListener(GameEventListener listener)
+        public void UnregisterListener(AbstractGameEventListener listener)
         {
             if (_eventListeners.Contains(listener))
                 _eventListeners.Remove(listener);
         }
 
-		public void RegisterAction(System.Action Delegate)
+		public void RegisterAction(System.Action action)
 		{
-			_eventScriptListeners += Delegate;
+			_eventScriptListeners += action;
 		}
 
-		public void UnregisterAction(System.Action Delegate)
+		public void UnregisterAction(System.Action action)
 		{
-			_eventScriptListeners -= Delegate;
+			_eventScriptListeners -= action;
 		}
 
-		public void GetEvents(out List<string> ListStrActions, out List<string> ListStrGEL)
+		public void GetEvents(out List<string> listStrActions, out List<string> listStrListener)
 		{
-			ListStrActions = new List<string>();
+			listStrActions = new List<string>();
 			if (_eventScriptListeners != null)
 			{
 				var data = _eventScriptListeners.GetInvocationList();
-				for (int i = 0; i < data.Length; i++)
+				for (var i = 0; i < data.Length; i++)
 				{
-					ListStrActions.Add("T:" + data[i].Target + "|M:" + data[i].Method.Name);
+					listStrActions.Add("T:" + data[i].Target + "|M:" + data[i].Method.Name);
 				}
 
 			}
-			ListStrGEL = new List<string>();
+			listStrListener = new List<string>();
 
-			for (int i = 0; i < _eventListeners.Count; i++)
+			for (var i = 0; i < _eventListeners.Count; i++)
 			{
-				ListStrGEL.Add("T:" + _eventListeners[i].name);
+				listStrListener.Add("T:" + _eventListeners[i].name);
 			}
 		}
 	}

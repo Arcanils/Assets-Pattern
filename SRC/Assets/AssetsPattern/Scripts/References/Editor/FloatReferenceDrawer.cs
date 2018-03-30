@@ -1,14 +1,9 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
-namespace AssetsPattern
+namespace AssetsPattern.Editor
 {
     [CustomPropertyDrawer(typeof(FloatReference))]
-    public class FloatReferenceDrawer : GenericReferenceDrawer<float>
+    public class FloatReferenceDrawer : GenericReferenceDrawer
     {
-		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-		{
-			base.OnGUI(position, property, label);
-		}
 	}
 }
